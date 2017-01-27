@@ -1,0 +1,56 @@
+<md-tab-group>
+<md-tab label="Book Parking">
+      <md-card class='example-card '>
+<div class='head-hh'>
+    <md-progress-spinner  mode="indeterminate" *ngIf='spinner'></md-progress-spinner>
+    <form class='example-form' (ngSubmit)="reserveParking()" #reserveParkingForm="ngForm">
+             <div>
+          <md-input-container>
+            <input md-input type="date" [(ngModel)]="booking.date" name="date"  #date="ngModel"  placeholder="Select Date" required>
+          </md-input-container>
+        </div>
+
+        <div>
+          <md-input-container>
+            <input md-input type="time" [(ngModel)]="booking.time" name='time' #time="ngModel"  placeholder="Select Starting Time" required>
+          </md-input-container>
+        </div>
+        <div>
+            <md-select placeholder="Select Hours" [(ngModel)]="booking.selectedhours" name="selectedhours"  #selectedhours="ngModel">
+                <md-option *ngFor="let type of hours" [value]="type">
+                    {{ type }}
+                </md-option>
+            </md-select>
+            <md-select placeholder="Select Location" [(ngModel)]="booking.location" name="location"   #location="ngModel" (ngModelChange)="updateSlots(booking.location)">
+                <md-option *ngFor="let location of locations" [value]="location">
+                    {{ location.$key }}
+                </md-option>
+            </md-select>
+        </div>
+        <div>
+            <button md-button type="submit">Book</button>
+            <button md-button (click)='cancel()'>Clear</button>
+        </div>
+    </form>
+</div>
+    <div *ngIf='currentSelectedSlots.length'>
+        <h3>Please select your desired slot</h3>
+        <!--<div class='slots' *ngFor="let slots of currentSelectedSlots" (click)='selectSlot(slots)'> </div>-->
+        <button md-raised-button *ngFor="let slots of currentSelectedSlots"  [disabled]="slots.bookedBy==''?false:true" (click)='selectSlot(slots)'> {{slots.name}}</button>
+    </div>
+     </md-card>
+</md-tab>
+<md-tab label="View Locations">
+    <!--<ul>
+    <li *ngFor="let item of companies">
+      <md-card>
+          <md-card-content>Email: {{item.email}} </md-card-content>
+          <md-card-content>Since: {{item.since}} </md-card-content>
+          <md-card-content>Total Employees: {{item.totalEmployees}} </md-card-content>
+          <md-card-content>Industry: {{item.industry}} </md-card-content>
+          <md-card-content>Manifesto: {{item.manefesto}} </md-card-content>
+      </md-card>
+    </li>
+  </ul>-->
+  </md-tab>
+</md-tab-group>

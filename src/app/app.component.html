@@ -1,0 +1,22 @@
+<md-toolbar  color="primary" class="md2 md-toolbar md-primary">
+  <div class="md-toolbar-layout">
+      <md-toolbar-row>
+        <span class='nav-title'>Parking Booking System </span>
+        <span class="spacer"></span>
+        
+        <div >       
+          <a  class='navbar-icons' routerLink='/login' routerLinkActive='active' *ngIf='true'>Login</a>
+          <a  class='navbar-icons' routerLink='/signup' *ngIf='true'>Sign up</a>
+          
+        </div>
+        <!--<md-tab-group>
+          <md-tab  routerLink='/login' routerLinkActive='active' label="Login"></md-tab>
+          <md-tab routerLink='/signup' label="Sign up"></md-tab>
+        </md-tab-group>-->
+        
+      </md-toolbar-row>
+    
+  </div>
+</md-toolbar>
+
+<router-outlet></router-outlet>
