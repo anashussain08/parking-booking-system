@@ -11,6 +11,7 @@ import { SignUp } from './components/signup/app.signup';
 import { Login } from './components/login/app.login';
 import { Dashboard } from './components/dashboard/app.dashboard';
 import { UserDashboard } from './components/dashboard/types/user/app.user.dashboard';
+import { AdminDashboard } from './components/dashboard/types/admin/app.admin.dashboard';
 
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
@@ -30,7 +31,8 @@ import { DataService } from './services/data.service';
     SignUp,
     Login,
     Dashboard,
-    UserDashboard
+    UserDashboard,
+    AdminDashboard
   ],
   imports: [
     BrowserModule,

@@ -59,12 +59,17 @@ export class AuthService{
             .then(
             data=>{
                 console.log(`${data} from login user`);
-                this.getUserFirebase(data.auth.uid)
-                .then(getData=>{
-                    this.currentUser = getData;
-                    resolve(getData);
-                })
-                .catch(er=>reject(er));
+                if(user.email == 'admin@admin.com'){
+                    resolve(data);
+                }else{
+                    this.getUserFirebase(data.auth.uid)
+                    .then(getData=>{
+                        this.currentUser = getData;
+                        resolve(getData);
+                    })
+                    .catch(er=>reject(er));
+                }
+                
             }) 
             .catch(err=>{
                 console.log(err);

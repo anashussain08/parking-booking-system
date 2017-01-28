@@ -22,6 +22,7 @@ export class UserDashboard implements OnInit{
     selectedSlot:any = {};
     availableSlots:any = [];
     myBookings:any = [];
+    previousSelectedSlot:any;
     constructor(public authService:AuthService, public dataService:DataService){
 
     }
@@ -78,7 +79,11 @@ export class UserDashboard implements OnInit{
           });
     }
     updateSlots(location){
-        this.currentSelectedSlots = location.slots;
+         this.currentSelectedSlots = [];
+        location.slots.forEach(slot=>{
+            slot['selected'] = false;
+            this.currentSelectedSlots.push(slot) ;
+        })
         this.selectedSlot['location'] = location.$key;
     }
     reserveParking(){
@@ -125,8 +130,13 @@ export class UserDashboard implements OnInit{
         this.clearModel();
     }
     
-    selectSlot(selectedSlot){
+    selectSlot(selectedSlot,i){
         this.selectedSlot['slot'] = selectedSlot;
+        this.currentSelectedSlots[i]['selected'] = !0;
+        if(this.previousSelectedSlot != undefined){
+            this.currentSelectedSlots[this.previousSelectedSlot]['selected'] = false;
+        }
+        this.previousSelectedSlot = i;
         console.log(`${this.selectedSlot}`);
     }
 }

@@ -1,0 +1,38 @@
+<md-tab-group>
+<md-tab label="View Users">
+    <ul *ngIf='allUsers && allUsers.length'>
+        <li *ngFor="let user of allUsers">
+        <md-card class='my-booking-card'>
+            <md-card-content>Username: {{user.username}} </md-card-content>
+            <md-card-content>Email: {{user.email}} </md-card-content>
+            <md-card-content>Created at: {{user.createAt}} </md-card-content>
+            <button class='remove-b' md-raised-button color='accent' (click)='removeUser(user)'>Remove</button>
+        </md-card>
+        </li>
+  </ul>
+</md-tab>
+<md-tab label="View Current Bookings">
+    <h3>Slots</h3>
+    <div *ngIf='allSlots && allSlots.length'>
+        <md-card>   
+            <div>
+                <h3><md-card-content>Location 1:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of allSlots[0]" [color]="slots.bookedBy !=''?'primary':''"  [disabled]="slots.bookedBy ==''"> {{slots.name}}</button>
+            </div>
+        </md-card>
+        <md-card>   
+            <div>
+                <h3><md-card-content>Location 2:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of allSlots[1]" [color]="slots.bookedBy !=''?'primary':''"  [disabled]="slots.bookedBy ==''"> {{slots.name}}</button>
+            </div>
+        </md-card>
+        <md-card >   
+            <div>
+                <h3><md-card-content>Location 3:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of allSlots[2]" [color]="slots.bookedBy !=''?'primary':''"  [disabled]="slots.bookedBy ==''"> {{slots.name}}</button>
+            </div>
+        </md-card>
+    </div>
+</md-tab>
+
+</md-tab-group>

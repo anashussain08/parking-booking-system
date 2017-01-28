@@ -36,7 +36,7 @@
     <div *ngIf='currentSelectedSlots.length'>
             <h3>Please select your desired slot</h3>
             <!--<div class='slots' *ngFor="let slots of currentSelectedSlots" (click)='selectSlot(slots)'> </div>-->
-            <button md-raised-button *ngFor="let slots of currentSelectedSlots"  [disabled]="slots.bookedBy==''?false:true" (click)='selectSlot(slots)'> {{slots.name}}</button>
+            <button md-raised-button *ngFor="let slots of currentSelectedSlots;let i=index"  [disabled]="slots.bookedBy==''?false:true" [color]='slots.selected?"warn":""' (click)='selectSlot(slots,i)'> {{slots.name}}</button>
         </div>
 </div>
     

@@ -33,6 +33,25 @@ export class DataService{
        
         //return Observable.fromPromise(promise);
     }
+    fetchUsers(){
+        let promise =   new Promise((resolve,reject)=>{
+            this.af.database.list('/users')
+            .subscribe(
+                dbData=>{
+                    resolve(dbData);
+                },
+                er=>{
+                    reject(er);
+                },
+                ()=>{
+
+                }
+                
+            )
+        });
+        return Observable.fromPromise(promise);
+        
+    }
     reserveParking(obj){
         let data = obj.booking;
         let slot = obj.selectSlot;
