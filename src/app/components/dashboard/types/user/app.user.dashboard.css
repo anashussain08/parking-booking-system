@@ -11,3 +11,15 @@
     margin: 20px;
     cursor: pointer;
 }
+.availSlots{
+    margin-right: 12px;
+}
+.submit-button{
+    margin-top: 28px;
+}
+.my-booking-card{
+    width:25%;
+}
+.remove-b{
+    margin-left: 68%;
+}

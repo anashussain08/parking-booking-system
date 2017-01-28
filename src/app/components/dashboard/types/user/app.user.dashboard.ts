@@ -20,7 +20,8 @@ export class UserDashboard implements OnInit{
     locations:any;
     currentSelectedSlots:any;
     selectedSlot:any = {};
-    
+    availableSlots:any = [];
+    myBookings:any = [];
     constructor(public authService:AuthService, public dataService:DataService){
 
     }
@@ -37,6 +38,7 @@ export class UserDashboard implements OnInit{
             location:null
         };
         this.currentSelectedSlots = [];
+        this.selectedSlot = {};
     }
     fetchLocations(){
         let _self = this;
@@ -44,6 +46,8 @@ export class UserDashboard implements OnInit{
         .then(
             data=>{
                 _self.locations = data;
+                this.updatefiltered();
+                this.updateMyBookings();
                 console.log(`${data} from fetchLocations in user dashboard`);
             },
             err=>{
@@ -53,23 +57,56 @@ export class UserDashboard implements OnInit{
         )
         
     }
+    updatefiltered(){
+          this.locations.forEach((item,i)=>{
+              this.availableSlots[i] = item.slots.filter(obj=>obj.bookedBy=='');
+          });
+    }
+    updateMyBookings(){
+        let _self = this;
+        this.myBookings = [];
+        this.locations.forEach((item,i)=>{
+              this.myBookings = this.myBookings
+              .concat(
+                  item.slots
+                    .filter(
+                            obj=>{
+                                obj.bookedBy==_self.user.$key && (obj['location']=item.$key);
+                                return obj.bookedBy==_self.user.$key
+                        })
+                  );
+          });
+    }
     updateSlots(location){
         this.currentSelectedSlots = location.slots;
         this.selectedSlot['location'] = location.$key;
     }
     reserveParking(){
         let _data = this.compileData();
-        this.validations(_data);
+       // this.validations(_data);
        this.dataService.reserveParking(_data)
        .then(
            data=>{
+               alert('parking booked successfully');
+               this.clearModel();
+               this.fetchLocations();
+           },er=>{
+               this.clearModel();
+           }
+       )
+
+    }
+    removeParking(data){
+        this.dataService.removeParking(data)
+       .then(
+           data=>{
+               this.clearModel();
                this.fetchLocations();
            },er=>{
                alert(er);
                this.clearModel();
            }
        )
-
     }
     compileData(){
         let _obj = {

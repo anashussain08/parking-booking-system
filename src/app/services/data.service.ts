@@ -58,4 +58,26 @@ export class DataService{
         //return Observable.fromPromise(promise);
          
     }
+    removeParking(data){
+        let slotToUpdate = +(data.name.slice(data.name.length-1)) - 1;
+        let _key = data.location+'/slots/'+slotToUpdate;
+        return  new Promise((resolve,reject)=>{
+                let _details = {
+                bookedBy: '',
+                parkingDate: '',
+                parkingHrs: '',
+                startTime: ''
+             };
+            let userNode = this.af.database.list('/locations');
+            userNode.update(_key,_details)
+            .then(
+                data=>{
+                    console.log(`${data} from update user!`)
+                    resolve({});
+            })
+            .catch(err=>reject(err));
+         })
+        //return Observable.fromPromise(promise);
+         
+    }
 }

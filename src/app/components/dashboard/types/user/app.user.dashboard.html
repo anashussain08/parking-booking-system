@@ -27,30 +27,60 @@
                 </md-option>
             </md-select>
         </div>
-        <div>
-            <button md-button type="submit">Book</button>
-            <button md-button (click)='cancel()'>Clear</button>
+        
+        <div class="submit-button">
+            <button md-raised-button color='primary' type="submit">Book</button>
+            <button md-raised-button color='primary' (click)='cancel()'>Clear</button>
         </div>
     </form>
-</div>
     <div *ngIf='currentSelectedSlots.length'>
-        <h3>Please select your desired slot</h3>
-        <!--<div class='slots' *ngFor="let slots of currentSelectedSlots" (click)='selectSlot(slots)'> </div>-->
-        <button md-raised-button *ngFor="let slots of currentSelectedSlots"  [disabled]="slots.bookedBy==''?false:true" (click)='selectSlot(slots)'> {{slots.name}}</button>
-    </div>
+            <h3>Please select your desired slot</h3>
+            <!--<div class='slots' *ngFor="let slots of currentSelectedSlots" (click)='selectSlot(slots)'> </div>-->
+            <button md-raised-button *ngFor="let slots of currentSelectedSlots"  [disabled]="slots.bookedBy==''?false:true" (click)='selectSlot(slots)'> {{slots.name}}</button>
+        </div>
+</div>
+    
      </md-card>
 </md-tab>
 <md-tab label="View Locations">
-    <!--<ul>
-    <li *ngFor="let item of companies">
-      <md-card>
-          <md-card-content>Email: {{item.email}} </md-card-content>
-          <md-card-content>Since: {{item.since}} </md-card-content>
-          <md-card-content>Total Employees: {{item.totalEmployees}} </md-card-content>
-          <md-card-content>Industry: {{item.industry}} </md-card-content>
-          <md-card-content>Manifesto: {{item.manefesto}} </md-card-content>
-      </md-card>
-    </li>
-  </ul>-->
+    <h3>Available Slots</h3>
+    <div *ngIf='availableSlots && availableSlots.length'>
+        <md-card>   
+            <div>
+                <h3><md-card-content>Location 1:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of availableSlots[0]"  [disabled]="true"> {{slots.name}}</button>
+            </div>
+        </md-card>
+        <md-card>   
+            <div>
+                <h3><md-card-content>Location 2:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of availableSlots[1]"  [disabled]="true"> {{slots.name}}</button>
+            </div>
+        </md-card>
+        <md-card >   
+            <div>
+                <h3><md-card-content>Location 3:</md-card-content></h3>
+                <button class="availSlots" md-raised-button *ngFor="let slots of availableSlots[2]"  [disabled]="true"> {{slots.name}}</button>
+            </div>
+        </md-card>
+    </div>
+    
+  </md-tab>
+  <md-tab label="My Bookings">
+    <ul *ngIf='myBookings.length'>
+        <li *ngFor="let item of myBookings">
+        <md-card class='my-booking-card'>
+            <md-card-content>Selected Location: {{item.location}} </md-card-content>
+            <md-card-content>Slot: {{item.name}} </md-card-content>
+            <md-card-content>Date for Parking: {{item.parkingDate}} </md-card-content>
+            <md-card-content>Time required: {{item.parkingHrs}} </md-card-content>
+            <md-card-content>Booked at: {{item.startTime}} </md-card-content>
+            <button class='remove-b' md-raised-button color='accent' (click)='removeParking(item)'>Remove</button>
+        </md-card>
+        </li>
+  </ul>
+  <md-card *ngIf='myBookings.length < 1'>
+      <md-card-content>Currently you have no bookings</md-card-content>
+  </md-card>
   </md-tab>
 </md-tab-group>
