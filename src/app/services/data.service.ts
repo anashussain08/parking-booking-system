@@ -99,4 +99,53 @@ export class DataService{
         //return Observable.fromPromise(promise);
          
     }
+    sendFeedBack(feedback){
+        let promise =  new Promise((resolve,reject)=>{
+                let _details = {
+                email: feedback.email,
+                message: feedback.message,
+             };
+            let userNode = this.af.database.object('/feedbacks/'+new Date().getTime());
+            userNode.set(_details)
+            .then(
+                data=>{
+                    console.log(`${data} from update user!`)
+                    resolve({});
+            })
+            .catch(err=>reject(err));
+         })
+        return Observable.fromPromise(promise);
+    }
+    fetchFeedBacks(){
+        let promise =   new Promise((resolve,reject)=>{
+            this.af.database.list('/feedbacks')
+            .subscribe(
+                dbData=>{
+                    resolve(dbData);
+                },
+                er=>{
+                    reject(er);
+                },
+                ()=>{
+
+                }
+                
+            )
+        });
+        return Observable.fromPromise(promise);
+    }
+    removeUser(uid){
+         let promise =  new Promise((resolve,reject)=>{
+               let _key = uid;
+            let userNode = this.af.database.list('/users');
+            userNode.remove(_key)
+            .then(
+                data=>{
+                    console.log(`${data} user removed!`)
+                    resolve({});
+            })
+            .catch(err=>reject(err));
+         })
+        return Observable.fromPromise(promise);
+    }
 }

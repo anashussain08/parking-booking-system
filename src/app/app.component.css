@@ -11,3 +11,9 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
+.navbar-icons-lg {
+    text-decoration: none;
+    color: white;
+    margin-left: 69px;
+    cursor: pointer;
+}

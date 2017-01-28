@@ -60,6 +60,7 @@ export class AuthService{
             data=>{
                 console.log(`${data} from login user`);
                 if(user.email == 'admin@admin.com'){
+                    this.User = {type:"Admin"};
                     resolve(data);
                 }else{
                     this.getUserFirebase(data.auth.uid)
@@ -79,6 +80,7 @@ export class AuthService{
        }) 
     }
     logout(){
+        this.User = null;
         return new Promise((resolve,reject)=>{
             this.af.auth.logout();
         })

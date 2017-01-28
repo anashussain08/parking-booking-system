@@ -1,2 +1,2 @@
 <user-dashboard *ngIf='user && user.type == "User"'></user-dashboard>
-<admin-dashboard *ngIf='!user'></admin-dashboard>
+<admin-dashboard *ngIf='user && user.type =="Admin"'></admin-dashboard>

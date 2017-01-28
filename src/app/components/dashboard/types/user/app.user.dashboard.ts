@@ -23,6 +23,7 @@ export class UserDashboard implements OnInit{
     availableSlots:any = [];
     myBookings:any = [];
     previousSelectedSlot:any;
+    feedback:any;
     constructor(public authService:AuthService, public dataService:DataService){
 
     }
@@ -38,6 +39,10 @@ export class UserDashboard implements OnInit{
             selectedhours:null,
             location:null
         };
+        this.feedback = {
+            message:'',
+            email:''
+        }
         this.currentSelectedSlots = [];
         this.selectedSlot = {};
     }
@@ -138,5 +143,20 @@ export class UserDashboard implements OnInit{
         }
         this.previousSelectedSlot = i;
         console.log(`${this.selectedSlot}`);
+    }
+    sendFeedback(){
+        this.feedback['email'] = this.user.email;
+        this.dataService.sendFeedBack(this.feedback)
+        .subscribe(
+            data=>{
+                alert('feedback sent!');
+                this.clearModel();
+            },err=>{
+                console.log('err');
+            },
+            ()=>{
+
+            }
+        )
     }
 }

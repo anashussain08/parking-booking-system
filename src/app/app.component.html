@@ -5,8 +5,10 @@
         <span class="spacer"></span>
         
         <div >       
-          <a  class='navbar-icons' routerLink='/login' routerLinkActive='active' *ngIf='true'>Login</a>
-          <a  class='navbar-icons' routerLink='/signup' *ngIf='true'>Sign up</a>
+          <a  class='navbar-icons' routerLink='/login' *ngIf="isLoggedin()" routerLinkActive='active' >Login</a>
+          <a  class='navbar-icons' routerLink='/signup' *ngIf="isLoggedin()" >Sign up</a>
+          <a  class='navbar-icons-lg' *ngIf="!isLoggedin()" (click)="logout()">Logout</a>
+          
           
         </div>
         <!--<md-tab-group>
